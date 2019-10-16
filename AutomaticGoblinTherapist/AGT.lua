@@ -3,6 +3,11 @@
 AGT - Automatic Goblin Therapist
 by Duugu (EU - Die silberne Hand - Horde)
 -------------------------------------------------------------------------------------------------------------
+
+1.5.0
+- Code import to https://github.com/mooreatv/AutomaticGoblinTherapist
+- Auto packaging for retail and classic
+
 1.4.5
 - Code cleanup
 

@@ -1,6 +1,13 @@
-## Interface: 80200
-## Title: Automatic Goblin Therapist (1.4.4)
+#@retail@
+## Interface: 80205
+#@end-retail@
+#@non-retail@
+# ## Interface: 11302
+#@end-non-retail@
+## Title: Automatic Goblin Therapist
+## Version: @project-version@
 ## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
+## Globe: check-classic
 AGT_Quotes.lua
 AGT_Lib.lua
 AGT.lua
