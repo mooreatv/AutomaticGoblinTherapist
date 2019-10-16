@@ -25,7 +25,7 @@ by Duugu (EU - Die silberne Hand - Horde)
 - Updated the addon to 54000.
 
 1.3.2
-- Slightly changed the phrase recognition mechanics 
+- Slightly changed the phrase recognition mechanics
 - toc updated to 30000
 
 1.3.1
@@ -41,11 +41,11 @@ by Duugu (EU - Die silberne Hand - Horde)
 1.2.2
 - Fixed a bug with the "guild pass trough" option
 - added a "quote" option.
-  AGT replies to whispers without recognized keywords with neutral phrases like "I see" or "I'm not sure I understand\nyou fully". 
-  The quote option is to add more variety to these kind of replies. The option forces AGT to reply to x percent of the incoming whispers without a 
-  keyword with a "best fit" quote out of a list approx. 850 predefinied quotes. 
-  If you set the option to 100% AGT answeres every whisper without a listed keywords with a quote. If you set the option to 0% AGT don't replies 
-  with quotes. 
+  AGT replies to whispers without recognized keywords with neutral phrases like "I see" or "I'm not sure I understand\nyou fully".
+  The quote option is to add more variety to these kind of replies. The option forces AGT to reply to x percent of the incoming
+  whispers without a keyword with a "best fit" quote out of a list approx. 850 predefinied quotes.
+  If you set the option to 100% AGT answeres every whisper without a listed keywords with a quote.
+  If you set the option to 0% AGT don't replies with quotes.
   A good value for this option could be "20%", where AGT replies with a quote to 20% of all whispers without a keyword.
 
 1.2.1
@@ -70,10 +70,12 @@ Ever had an annoying conversation with one of these morons who couldn't shut up?
 A brainsick lvl 1 orc asks you every few minutes for some gold?
 Whispers with "r u healer?" over and over again?
 
-From now on your personal Automatic Goblin Therapist will do the job for you. He will do the full conversation for you - guarding your back AND doing all the treatment.
+From now on your personal Automatic Goblin Therapist will do the job for you.
+He will do the full conversation for you - guarding your back AND doing all the treatment.
 
-Every character who whispers you is added to the Waiting Room. 
-A left click on a character in the Waiting Room moves it to Surgery where the last whisper and all further whispers are automatically answered by your diligent Goblin Therapist.
+Every character who whispers you is added to the Waiting Room.
+A left click on a character in the Waiting Room moves it to Surgery where the last whisper
+and all further whispers are automatically answered by your diligent Goblin Therapist.
 A second left click will move the character back to the Waiting Room.
 A right click kicks the character out of Surgery or Waiting Room and opens a seat for new patients.
 
@@ -84,11 +86,16 @@ A right click kicks the character out of Surgery or Waiting Room and opens a sea
 
 
 Credits
-- ELIZA is a computer program by Joseph Weizenbaum, designed in 1966, which parodied a Rogerian therapist, largely by rephrasing many of the patient's statements as questions and posing them to the patient. http://en.wikipedia.org/wiki/ELIZA
-- I took lot of the source code from Michal Wallace's and George Dunlop's JavaScript implementation of ELIZA (http://www.manifestation.com/neurotoys/eliza.php3) and ported it to lua.
+- ELIZA is a computer program by Joseph Weizenbaum, designed in 1966, which parodied a Rogerian therapist,
+largely by rephrasing many of the patient's statements as questions and posing them to the patient.
+http://en.wikipedia.org/wiki/ELIZA
+- I took lot of the source code from Michal Wallace's and George Dunlop's JavaScript implementation
+of ELIZA (http://www.manifestation.com/neurotoys/eliza.php3) and ported it to lua.
 
 -------------------------------------------------------------------------------------------------------------
---]] AGTtocVersion = select(4, GetBuildInfo())
+--]]
+
+AGTtocVersion = select(4, GetBuildInfo())
 
 local AGTelapsedUpdate = 0
 local AGTNotFoundKey = 1
@@ -481,8 +488,8 @@ local AGTFonts = {
   [25] = "TextStatusBarText",
   [26] = "CombatLogFont"
 }
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGAGTen(msg, patient)
   local sInput = AGTstrTrim(msg)
   if sInput ~= "" and sInput ~= " " and sInput ~= "  " and sInput ~= "." and sInput ~= "," then
@@ -548,8 +555,8 @@ function AGAGTen(msg, patient)
     return "I can't help, if you will not chat with me!"
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTGetQuote(sInput)
   local tWords = {}
   for k, v in string.gmatch(sInput, "([%w']+)") do
@@ -580,8 +587,8 @@ function AGTGetQuote(sInput)
   end
   return "\"" .. AGTQuotes[tResponse].Quote .. "\" - " .. AGTQuotes[tResponse].Source
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTDialog(msg, patient)
   _G["AGTMain"]:Show()
   AGTPatients[patient].ChatLog = AGTPatients[patient].ChatLog .. msg .. "\n"
@@ -591,8 +598,8 @@ function AGTDialog(msg, patient)
     AGTSendResponse(GoblinsResponse, patient)
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTstrTrim(orgString)
   local tmpChars = ".,!?:;&\"@#()^$+-%= "
 
@@ -622,8 +629,8 @@ function AGTstrTrim(orgString)
   end
   return orgString
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTpadString(strng)
   local aString = " " .. strng .. " "
   for i = 1, 12, 1 do
@@ -632,8 +639,8 @@ function AGTpadString(strng)
 
   return " " .. aString .. " "
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTfindkey(wString)
   for k, v in string.gmatch(wString, "([%w']+ [%w']+ [%w']+ [%w']+ [%w']+)") do
     for x = 1, table.getn(AGTkeyword), 1 do
@@ -908,8 +915,8 @@ function AGTOnEvent(self, event, ...)
     end
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTSendResponse(GoblinsResponse, patient)
   if AGTOptionsSettings["Global"].AddTherapistPrefix.Value == AGTOptionsCONSTChecked then
     GoblinsResponse = "[Therapist]: " .. GoblinsResponse
@@ -922,8 +929,8 @@ function AGTSendResponse(GoblinsResponse, patient)
   })
 
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTRemoveSeat(Patient)
   for x = 1, 5, 1 do
     if _G["AGTMainTherapy" .. x .. "FS"]:GetText() == Patient and _G["AGTMainTherapy" .. x .. "FS"]:GetText() ~=
@@ -973,8 +980,8 @@ function AGTUpdateSeats(newPatient)
     DEFAULT_CHAT_FRAME:AddMessage("Therapist: Oh noes! Waiting room full. New patient " .. newPatient .. " rejected.")
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTTherapyOnClick(self, button, down)
   local x = string.sub(self:GetName(), 15)
 
@@ -1008,8 +1015,8 @@ function AGTTherapyOnClick(self, button, down)
     AGTRemoveSeat(_G["AGTMainTherapy" .. x .. "FS"]:GetText())
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 local f = CreateFrame("Frame", "AGTMain", UIParent)
 f:SetFrameStrata("MEDIUM")
 f:SetWidth(260)
@@ -1091,9 +1098,8 @@ for x = 1, 5, 1 do
   fs:SetPoint("TOP", "AGTMainTherapy" .. x, "TOP")
   fs:SetText("Empty Seat")
 end
----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTUpdateVisuals()
   local f = _G["AGTMain"]
   if AGTOptionsSettings["Global"].Enabled.Value == AGTOptionsCONSTChecked then
@@ -1145,9 +1151,8 @@ function AGTUpdateVisuals()
     _G["AGTMain"]:Hide()
   end
 end
----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsShowOptionsHelp(framename, inout)
   if AGTOptionsSettings["Global"].AGTShowHelpTooltips.Value == AGTOptionsCONSTChecked then
     local tLocale = ""
@@ -1179,18 +1184,16 @@ function AGTOptionsShowOptionsHelp(framename, inout)
     AGTOptionsTooltip:Hide()
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsHighlightButtons()
   for x = 1, AGTOptionsNoOptionsFrameTemplates, 1 do
     _G["AGTOptionsTabs" .. AGTOptionsOptionsTemplate[x]]:UnlockHighlight()
   end
   _G["AGTOptionsTabs" .. AGTOptionsActualOptionsTemplate]:LockHighlight()
 end
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsLoadSettings()
   local tLocale = ""
   if AGTOptionsLocales[GetLocale()] then
@@ -1339,9 +1342,8 @@ function AGTOptionsLoadSettings()
     end
   end)
 end
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsSaveSettings()
   local kids = {_G["AGTOptionsTabsSettings"]:GetChildren()} -- get all options
   for _, child in ipairs(kids) do
@@ -1404,9 +1406,9 @@ function AGTOptionsSaveSettings()
   end
   AGTUpdateVisuals()
 end
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
--- called with framname for this the colorpicker is opened 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+-- called with framname for this the colorpicker is opened
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsColorPickerPrepare(target)
   AGTOptionsOptionsColorPickerActualFrame = target
   local r, g, b, a = _G[target]:GetBackdropColor()
@@ -1435,13 +1437,13 @@ function AGTOptionsColorPickerCancel(prevvals)
   AGTOptionsOptionsColorPickerActualFrame = ""
 end
 ------------------------------------------------------------------------------------
--- 
+--
 ------------------------------------------------------------------------------------
 function AGTOptionsOpenOnLoad(self)
   self:RegisterEvent("VARIABLES_LOADED")
 end
 ------------------------------------------------------------------------------------
--- 
+--
 ------------------------------------------------------------------------------------
 function AGTOptionsOpenOnEvent(self)
   local panel = _G["AGTOptions"]
@@ -1451,7 +1453,7 @@ function AGTOptionsOpenOnEvent(self)
   AGTOptionsInitAll()
 end
 --------------------------------------------------------------------------------------------------------------------------------
--- 
+--
 --------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsInitAll()
   local tframe = nil
@@ -1514,7 +1516,7 @@ function AGTOptionsInitAll()
   AGTUpdateVisuals()
 end
 --------------------------------------------------------------------------------------------------------------------------------
--- 
+--
 --------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsReset()
   AGTOptionsSettings = {}
@@ -1541,9 +1543,9 @@ function AGTOptionsReset()
   AGTOptionsLoadSettings()
   AGTUpdateVisuals()
 end
--------------------------------------------------------------------------------------------------------------------------------------------------
--- 
--------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+--
+------------------------------------------------------------------------------------------------------------------------------------
 AGTOptionsOptionsTemplate = {"Global", "Visuals", "Sounds"}
 AGTOptionsCONSTChecked = 1
 AGTOptionsCONSTUnChecked = -1
