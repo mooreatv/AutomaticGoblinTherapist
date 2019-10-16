@@ -1,0 +1,7 @@
+## Interface: 80200
+## Title: Automatic Goblin Therapist (1.4.4)
+## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
+AGT_Quotes.lua
+AGT_Lib.lua
+AGT.lua
+AGT.xml 
