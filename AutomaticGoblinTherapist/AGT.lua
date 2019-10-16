@@ -98,9 +98,8 @@ http://en.wikipedia.org/wiki/ELIZA
 of ELIZA (http://www.manifestation.com/neurotoys/eliza.php3) and ported it to lua.
 
 -------------------------------------------------------------------------------------------------------------
---]]
-
-AGTtocVersion = select(4, GetBuildInfo())
+--]] -- probably should move all those globals into AGT. instead
+AGTtocVersion = select(4, GetBuildInfo()) -- TODO replace by is classic vs not, or remove entirely
 
 local AGTelapsedUpdate = 0
 local AGTNotFoundKey = 1
@@ -517,7 +516,7 @@ function AGAGTen(msg, patient)
         AGTPatients[patient].Greet = true
         AGTPatients[patient].PrevAnswMsg = msg
         if string.len(sInput) < 5 and AGTPatients[patient].PrevAnswMsg ~= "" then
-          local idrange = table.getn(AGTToShortResponse)
+          local idrange = #AGTToShortResponse
           local choice = 0
           if idrange > 1 then
             local stop = false
@@ -564,14 +563,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------
 function AGTGetQuote(sInput)
   local tWords = {}
-  for k, v in string.gmatch(sInput, "([%w']+)") do
+  for k, _ in string.gmatch(sInput, "([%w']+)") do
     table.insert(tWords, k)
   end
   local tBestQuotes = {}
   local mxWords = 0
-  for x = 1, table.getn(AGTQuotes), 1 do
+  for x = 1, #AGTQuotes, 1 do
     local count = 0
-    for y = 1, table.getn(tWords), 1 do
+    for y = 1, #tWords, 1 do
       if string.find(AGTQuotes[x].Quote, tWords[y]) then
         count = count + 1
       end
@@ -584,11 +583,11 @@ function AGTGetQuote(sInput)
       table.insert(tBestQuotes, x)
     end
   end
-  local tResponse = nil
-  if table.getn(tBestQuotes) > 0 then
-    tResponse = tBestQuotes[math.random(table.getn(tBestQuotes))]
+  local tResponse
+  if #tBestQuotes > 0 then
+    tResponse = tBestQuotes[math.random(#tBestQuotes)]
   else
-    tResponse = math.random(table.getn(AGTQuotes))
+    tResponse = math.random(#AGTQuotes)
   end
   return "\"" .. AGTQuotes[tResponse].Quote .. "\" - " .. AGTQuotes[tResponse].Source
 end
@@ -647,36 +646,36 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
 function AGTfindkey(wString)
-  for k, v in string.gmatch(wString, "([%w']+ [%w']+ [%w']+ [%w']+ [%w']+)") do
-    for x = 1, table.getn(AGTkeyword), 1 do
+  for k, _ in string.gmatch(wString, "([%w']+ [%w']+ [%w']+ [%w']+ [%w']+)") do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == k then
         return x
       end
     end
   end
-  for k, v in string.gmatch(wString, "([%w']+ [%w']+ [%w']+ [%w']+)") do
-    for x = 1, table.getn(AGTkeyword), 1 do
+  for k, _ in string.gmatch(wString, "([%w']+ [%w']+ [%w']+ [%w']+)") do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == k then
         return x
       end
     end
   end
-  for k, v in string.gmatch(wString, "([%w']+ [%w']+ [%w']+)") do
-    for x = 1, table.getn(AGTkeyword), 1 do
+  for k, _ in string.gmatch(wString, "([%w']+ [%w']+ [%w']+)") do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == k then
         return x
       end
     end
   end
-  for k, v in string.gmatch(wString, "([%w']+ [%w']+)") do
-    for x = 1, table.getn(AGTkeyword), 1 do
+  for k, _ in string.gmatch(wString, "([%w']+ [%w']+)") do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == k then
         return x
       end
     end
   end
-  for k, v in string.gmatch(wString, "([%w]-) ") do
-    for x = 1, table.getn(AGTkeyword), 1 do
+  for k, _ in string.gmatch(wString, "([%w]-) ") do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == k then
         return x
       end
@@ -685,11 +684,11 @@ function AGTfindkey(wString)
 
   return AGTNotFoundKey
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTphrase(sString, keyidx, patient)
-  local thisstr = ""
-  local idrange = table.getn(AGTkeyword[keyidx].Responses)
+  local thisstr
+  local idrange = #AGTkeyword[keyidx].Responses
   local choice = 0
   if idrange > 1 then
     local stop = false
@@ -706,7 +705,7 @@ function AGTphrase(sString, keyidx, patient)
   AGTPatients[patient].LastResponseNr = AGTkeyword[keyidx].Responses[choice]
   local rTemp = AGTresponse[AGTkeyword[keyidx].Responses[choice]].Text
   local tempt = string.sub(rTemp, -1, -1)
-  local sTemp = ""
+  local sTemp
   if tempt == "*" or tempt == "@" then
     sTemp = AGTpadString(sString)
     local wTemp = string.upper(sTemp)
@@ -737,8 +736,8 @@ function AGTphrase(sString, keyidx, patient)
 
   return sTemp
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTunpadString(strng)
   local aString = strng
   aString = string.gsub(aString, "  ", " ")
@@ -756,8 +755,8 @@ function AGTunpadString(strng)
 
   return aString
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTconjugate(sStrg)
   local sString = sStrg
   for i = 1, AGTmaxConj, 1 do
@@ -775,9 +774,9 @@ function AGTconjugate(sStrg)
 
   return sString
 end
----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-function AGTOnUpdate(self, elapsed)
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+function AGTOnUpdate(_self, elapsed)
   if AGTOptionsSettings["Global"].Enabled.Value == AGTOptionsCONSTChecked then
     AGTelapsedUpdate = AGTelapsedUpdate + elapsed
     if AGTelapsedUpdate > 4 then
@@ -820,19 +819,19 @@ function AGTOnUpdate(self, elapsed)
     end
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTOnLoad(self)
   DEFAULT_CHAT_FRAME:AddMessage("Your Goblin Therapist Hangs Out His Shingle")
   self:RegisterEvent("CHAT_MSG_WHISPER")
   self:RegisterEvent("CHAT_MSG_IGNORED")
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-function AGTOnEvent(self, event, ...)
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+function AGTOnEvent(_self, event, ...)
   if AGTOptionsSettings["Global"].Enabled.Value == AGTOptionsCONSTChecked then
 
-    local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 = ...
+    local arg1, arg2, _arg3, _arg4, _arg5, _arg6, _arg7, _arg8, _arg9 = ...
     if event == "CHAT_MSG_IGNORED" then
       if AGTPatients[arg2] then
         if AGTPatients[arg2].InTreatment == true then
@@ -852,7 +851,8 @@ function AGTOnEvent(self, event, ...)
         end
       end
       if AGTOptionsSettings["Sounds"].Ignore.Value > 1 then
-        --				PlaySoundFile(AGTSoundFiles[math.floor(AGTOptionsSettings["Sounds"].Ignore.Value)].path..AGTSoundFiles[math.floor(AGTOptionsSettings["Sounds"].Ignore.Value)].name..".ogg")
+        --	PlaySoundFile(AGTSoundFiles[math.floor(AGTOptionsSettings["Sounds"].Ignore.Value)]
+        --   .path..AGTSoundFiles[math.floor(AGTOptionsSettings["Sounds"].Ignore.Value)].name..".ogg")
         PlaySoundFile(AGTSoundFiles[math.floor(AGTOptionsSettings["Sounds"].Ignore.Value)].id)
       end
     end
@@ -962,8 +962,8 @@ function AGTRemoveSeat(Patient)
     _G["AGTMain"]:Show()
   end
 end
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 function AGTUpdateSeats(newPatient)
   local done = false
   for x = 1, 5, 1 do
@@ -987,7 +987,7 @@ function AGTUpdateSeats(newPatient)
 end
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
-function AGTTherapyOnClick(self, button, down)
+function AGTTherapyOnClick(self, button, _down)
   local x = string.sub(self:GetName(), 15)
 
   if button == "LeftButton" then
@@ -1055,7 +1055,7 @@ fs:SetJustifyH("CENTER")
 fs:SetJustifyV("TOP")
 fs:SetPoint("TOPLEFT", "AGTMain", "TOPLEFT")
 fs:SetText("Automatic Goblin Therapist")
-local fs = f:CreateFontString("AGTMainFSLeft")
+fs = f:CreateFontString("AGTMainFSLeft")
 fs:SetWidth(180)
 fs:SetHeight(50)
 fs:SetFontObject(GameFontNormal)
@@ -1064,7 +1064,7 @@ fs:SetJustifyH("LEFT")
 fs:SetJustifyV("TOP")
 fs:SetPoint("TOPLEFT", "AGTMain", "TOPLEFT", 0, -15)
 fs:SetText("Waiting Room")
-local fs = f:CreateFontString("AGTMainFSRight")
+fs = f:CreateFontString("AGTMainFSRight")
 fs:SetWidth(180)
 fs:SetHeight(50)
 fs:SetFontObject(GameFontNormal)
@@ -1093,7 +1093,7 @@ for x = 1, 5, 1 do
     insets = {left = 0, right = 0, top = 0, bottom = 0}
   })
   tf.InTreatment = false
-  local fs = tf:CreateFontString("AGTMainTherapy" .. x .. "FS")
+  fs = tf:CreateFontString("AGTMainTherapy" .. x .. "FS")
   fs:SetWidth(125)
   fs:SetHeight(20)
   fs:SetFontObject(GameFontNormalSmall)
@@ -1160,7 +1160,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsShowOptionsHelp(framename, inout)
   if AGTOptionsSettings["Global"].AGTShowHelpTooltips.Value == AGTOptionsCONSTChecked then
-    local tLocale = ""
+    local tLocale
     if AGTOptionsLocales[GetLocale()] then
       tLocale = GetLocale() .. "Help"
     else
@@ -1555,7 +1555,7 @@ AGTOptionsOptionsTemplate = {"Global", "Visuals", "Sounds"}
 AGTOptionsCONSTChecked = 1
 AGTOptionsCONSTUnChecked = -1
 AGTOptionsCONSTSaveValue = false
-AGTOptionsNoOptionsFrameTemplates = table.getn(AGTOptionsOptionsTemplate)
+AGTOptionsNoOptionsFrameTemplates = #AGTOptionsOptionsTemplate
 AGTOptionsActualOptionsTemplate = AGTOptionsOptionsTemplate[1]
 AGTOptionsOptionsColorPickerActualFrame = ""
 AGTOptionsLocales = {enEN = true}
@@ -1843,10 +1843,10 @@ function AGTOpenLib()
   AGTEditSaveResponse:Disable()
   AGTEditEditboxText3:ClearFocus()
   AGTParent = 0
-  for x = 1, table.getn(AGTresponse), 1 do
+  for x = 1, #AGTresponse, 1 do
     AGTresponse[x].Selected = false
   end
-  for x = 1, table.getn(AGTkeyword), 1 do
+  for x = 1, #AGTkeyword, 1 do
     AGTkeyword[x].Selected = false
   end
   AGTEditScrollBars_Update()
@@ -1895,23 +1895,23 @@ function AGTEditScrollBar_OnClick(...)
       if string.find(self:GetName(), "AGTEdit1") then
         if AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Selected == true and AGTParent == 1 then
           AGTParent = 0
-          for x = 1, table.getn(AGTkeyword), 1 do
+          for x = 1, #AGTkeyword, 1 do
             AGTkeyword[x].Selected = false
           end
-          for x = 1, table.getn(AGTresponse), 1 do
+          for x = 1, #AGTresponse, 1 do
             AGTresponse[x].Selected = false
           end
         else
           AGTParent = 1
-          for x = 1, table.getn(AGTkeyword), 1 do
+          for x = 1, #AGTkeyword, 1 do
             AGTkeyword[x].Selected = false
           end
           AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Selected = true
 
-          for x = 1, table.getn(AGTresponse), 1 do
+          for x = 1, #AGTresponse, 1 do
             AGTresponse[x].Selected = false
           end
-          for x = 1, table.getn(AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses), 1 do
+          for x = 1, #AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses, 1 do
             AGTresponse[AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses[x]].Selected =
               true
           end
@@ -1919,24 +1919,24 @@ function AGTEditScrollBar_OnClick(...)
       elseif string.find(self:GetName(), "AGTEdit2") then
         if AGTresponse[FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID()].Selected == true and AGTParent == 2 then
           AGTParent = 0
-          for x = 1, table.getn(AGTkeyword), 1 do
+          for x = 1, #AGTkeyword, 1 do
             AGTkeyword[x].Selected = false
           end
-          for x = 1, table.getn(AGTresponse), 1 do
+          for x = 1, #AGTresponse, 1 do
             AGTresponse[x].Selected = false
           end
         else
           AGTParent = 2
-          for x = 1, table.getn(AGTkeyword), 1 do
+          for x = 1, #AGTkeyword, 1 do
             AGTkeyword[x].Selected = false
           end
-          for x = 1, table.getn(AGTresponse), 1 do
+          for x = 1, #AGTresponse, 1 do
             AGTresponse[x].Selected = false
           end
           AGTresponse[FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID()].Selected = true
 
-          for x = 1, table.getn(AGTkeyword), 1 do
-            for y = 1, table.getn(AGTkeyword[x].Responses), 1 do
+          for x = 1, #AGTkeyword, 1 do
+            for y = 1, #AGTkeyword[x].Responses, 1 do
               if AGTkeyword[x].Responses[y] == FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID() then
                 AGTkeyword[x].Selected = true
               end
@@ -1957,7 +1957,7 @@ function AGTEditScrollBar_OnClick(...)
     else
       if string.find(self:GetName(), "AGTEdit1") and AGTParent == 2 then
         local selresp = 0
-        for x = 1, table.getn(AGTresponse), 1 do
+        for x = 1, #AGTresponse, 1 do
           if AGTresponse[x].Selected == true then
             selresp = x
           end
@@ -1965,7 +1965,7 @@ function AGTEditScrollBar_OnClick(...)
 
         if AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Selected == true then
           local found = 0
-          for x = 1, table.getn(AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses), 1 do
+          for x = 1, #AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses, 1 do
             if AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses[x] == selresp then
               found = x
             end
@@ -1977,13 +1977,13 @@ function AGTEditScrollBar_OnClick(...)
           table.insert(AGTkeyword[FauxScrollFrame_GetOffset(AGTEditScrollBar1) + self:GetID()].Responses, selresp)
         end
 
-        for x = 1, table.getn(AGTkeyword), 1 do
+        for x = 1, #AGTkeyword, 1 do
           AGTkeyword[x].Selected = false
         end
-        for q = 1, table.getn(AGTresponse), 1 do
+        for q = 1, #AGTresponse, 1 do
           if AGTresponse[q].Selected == true then
-            for x = 1, table.getn(AGTkeyword), 1 do
-              for y = 1, table.getn(AGTkeyword[x].Responses), 1 do
+            for x = 1, #AGTkeyword, 1 do
+              for y = 1, #AGTkeyword[x].Responses, 1 do
                 if AGTkeyword[x].Responses[y] == q then
                   AGTkeyword[x].Selected = true
                 end
@@ -1993,14 +1993,14 @@ function AGTEditScrollBar_OnClick(...)
         end
       elseif string.find(self:GetName(), "AGTEdit2") and AGTParent == 1 then
         local selkey = 0
-        for x = 1, table.getn(AGTkeyword), 1 do
+        for x = 1, #AGTkeyword, 1 do
           if AGTkeyword[x].Selected == true then
             selkey = x
           end
         end
         if AGTresponse[FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID()].Selected == true then
           local found = 0
-          for x = 1, table.getn(AGTkeyword[selkey].Responses), 1 do
+          for x = 1, #AGTkeyword[selkey].Responses, 1 do
             if AGTkeyword[selkey].Responses[x] == FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID() then
               found = x
             end
@@ -2012,10 +2012,10 @@ function AGTEditScrollBar_OnClick(...)
           table.insert(AGTkeyword[selkey].Responses, FauxScrollFrame_GetOffset(AGTEditScrollBar2) + self:GetID())
         end
 
-        for x = 1, table.getn(AGTresponse), 1 do
+        for x = 1, #AGTresponse, 1 do
           AGTresponse[x].Selected = false
         end
-        for x = 1, table.getn(AGTkeyword[selkey].Responses), 1 do
+        for x = 1, #AGTkeyword[selkey].Responses, 1 do
           AGTresponse[AGTkeyword[selkey].Responses[x]].Selected = true
         end
       end
@@ -2025,10 +2025,10 @@ function AGTEditScrollBar_OnClick(...)
 end
 function AGTEditScrollBars_Update()
   local lineplusoffset
-  FauxScrollFrame_Update(AGTEditScrollBar1, table.getn(AGTkeyword), 10, 20)
+  FauxScrollFrame_Update(AGTEditScrollBar1, #AGTkeyword, 10, 20)
   for line = 1, 10, 1 do
     lineplusoffset = line + FauxScrollFrame_GetOffset(AGTEditScrollBar1)
-    if lineplusoffset <= table.getn(AGTkeyword) then
+    if lineplusoffset <= #AGTkeyword then
       _G["AGTEdit1Entry" .. line .. "NoFS"]:SetText(lineplusoffset)
       _G["AGTEdit1Entry" .. line .. "TextFS"]:SetText(AGTkeyword[lineplusoffset].key)
       if AGTkeyword[lineplusoffset].Selected == true then
@@ -2049,10 +2049,10 @@ function AGTEditScrollBars_Update()
   end
 
   local lineplusoffset
-  FauxScrollFrame_Update(AGTEditScrollBar2, table.getn(AGTresponse), 10, 20)
+  FauxScrollFrame_Update(AGTEditScrollBar2, #AGTresponse, 10, 20)
   for line = 1, 10, 1 do
     lineplusoffset = line + FauxScrollFrame_GetOffset(AGTEditScrollBar2)
-    if lineplusoffset <= table.getn(AGTresponse) then
+    if lineplusoffset <= #AGTresponse then
       _G["AGTEdit2Entry" .. line .. "NoFS"]:SetText(lineplusoffset)
       _G["AGTEdit2Entry" .. line .. "TextFS"]:SetText(AGTresponse[lineplusoffset].Text)
       if AGTresponse[lineplusoffset].Selected == true then
@@ -2130,7 +2130,7 @@ end
 function AGTNewKeyButton()
   if AGTEditEditboxText3:GetText() ~= "" then
     local notnew = 0
-    for x = 1, table.getn(AGTkeyword), 1 do
+    for x = 1, #AGTkeyword, 1 do
       if AGTkeyword[x].key == string.upper(AGTEditEditboxText3:GetText()) then
         notnew = x
       end
@@ -2145,8 +2145,8 @@ function AGTNewKeyButton()
       table.insert(AGTkeyword,
                    {key = string.upper(AGTEditEditboxText3:GetText()), Responses = {}, Selected = false, Q = false})
       AGTEditScrollBars_Update()
-      FauxScrollFrame_SetOffset(AGTEditScrollBar1, (table.getn(AGTkeyword) + 1))
-      _G["AGTEditScrollBar1ScrollBar"]:SetValue((table.getn(AGTkeyword) + 1) * 20)
+      FauxScrollFrame_SetOffset(AGTEditScrollBar1, (#AGTkeyword + 1))
+      _G["AGTEditScrollBar1ScrollBar"]:SetValue((#AGTkeyword + 1) * 20)
       AGTEditScrollBars_Update()
       AGTClearEditbox()
     end
@@ -2159,7 +2159,7 @@ end
 function AGTNewResponseButton()
   if AGTEditEditboxText3:GetText() ~= "" then
     local notnew = 0
-    for x = 1, table.getn(AGTresponse), 1 do
+    for x = 1, #AGTresponse, 1 do
       if AGTresponse[x].Text == AGTEditEditboxText3:GetText() then
         notnew = x
       end
@@ -2173,8 +2173,8 @@ function AGTNewResponseButton()
     else
       table.insert(AGTresponse, {Text = AGTEditEditboxText3:GetText(), Selected = false})
       AGTEditScrollBars_Update()
-      FauxScrollFrame_SetOffset(AGTEditScrollBar2, (table.getn(AGTresponse) + 1))
-      _G["AGTEditScrollBar2ScrollBar"]:SetValue((table.getn(AGTresponse) + 1) * 20)
+      FauxScrollFrame_SetOffset(AGTEditScrollBar2, (#AGTresponse + 1))
+      _G["AGTEditScrollBar2ScrollBar"]:SetValue((#AGTresponse + 1) * 20)
       AGTEditScrollBars_Update()
       AGTClearEditbox()
     end
@@ -2189,7 +2189,7 @@ function AGTOptionsOutputDropDown_OnLoad(frame, source, value)
         AGTOptionsOutputDropDown_OnClick(self, tname)
       end
     }
-    for i = 1, table.getn(source), 1 do
+    for i = 1, #source, 1 do
       entry.text = source[i]
       entry.value = value
       UIDropDownMenu_AddButton(entry)
@@ -2211,10 +2211,10 @@ function AGTOptionsOutputDropDown_OnClick(self, tname)
   AGTEditSaveResponse:Disable()
   AGTEditEditboxText3:ClearFocus()
   AGTParent = 0
-  for x = 1, table.getn(AGTresponse), 1 do
+  for x = 1, #AGTresponse, 1 do
     AGTresponse[x].Selected = false
   end
-  for x = 1, table.getn(AGTkeyword), 1 do
+  for x = 1, #AGTkeyword, 1 do
     AGTkeyword[x].Selected = false
   end
   AGTEditScrollBars_Update()
