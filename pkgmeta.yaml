@@ -1,0 +1,11 @@
+package-as: AutomaticGoblinTherapist
+
+ignore:
+    - install.bat
+    - luaformat.cfg
+    - pkgmeta.yaml
+
+move-folders:
+  AutomaticGoblinTherapist/AutomaticGoblinTherapist: AutomaticGoblinTherapist
+
+enable-nolib-creation: no
