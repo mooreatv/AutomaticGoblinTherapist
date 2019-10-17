@@ -34,5 +34,5 @@ jobs:
          WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
       - uses: actions/upload-artifact@master
         with:
-          name: NeatMinimap-Build-${{ github.sha }}
+          name: AGT-Build-${{ github.sha }}
           path: .release/
