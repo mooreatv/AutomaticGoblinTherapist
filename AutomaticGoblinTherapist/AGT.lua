@@ -859,8 +859,8 @@ function AGTOnEvent(_self, event, ...)
     if event == "CHAT_MSG_WHISPER" then
       if not UnitIsAFK("player") and not UnitIsDND("player") then
         local friend = nil
-        for x = 1, GetNumFriends(), 1 do
-          local tname = GetFriendInfo(x)
+        for x = 1, C_FriendList.GetNumFriends(), 1 do
+          local tname = C_FriendList.GetFriendInfo(x)
           if arg2 == tname then
             if AGTOptionsSettings["Global"].Friends.Value == AGTOptionsCONSTChecked then
               friend = true

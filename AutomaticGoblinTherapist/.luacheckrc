@@ -15,8 +15,6 @@ globals = {
     "PlaySoundFile",
     "UnitIsAFK",
     "UnitIsDND",
-    "GetNumFriends",
-    "GetFriendInfo",
     "GuildRoster",
     "GetNumGuildMembers",
     "GetGuildRosterInfo",
@@ -60,6 +58,7 @@ globals = {
     "AGTTherapyOnClick",
     "AGTUpdateVisuals",
     "AGTOptionsShowOptionsHelp",
+    "C_FriendList",
 }
 max_line_length = 2823 -- fixme
 ignore = {
