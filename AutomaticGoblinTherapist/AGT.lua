@@ -99,7 +99,6 @@ of ELIZA (http://www.manifestation.com/neurotoys/eliza.php3) and ported it to lu
 
 -------------------------------------------------------------------------------------------------------------
 --]] -- probably should move all those globals into AGT. instead
-AGTtocVersion = select(4, GetBuildInfo()) -- TODO replace by is classic vs not, or remove entirely
 
 local AGTelapsedUpdate = 0
 local AGTNotFoundKey = 1

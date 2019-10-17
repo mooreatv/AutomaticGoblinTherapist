@@ -31,7 +31,6 @@ globals = {
     "FauxScrollFrame_Update",
     "UIDropDownMenu_Initialize",
     "UIDropDownMenu_AddButton",
-    "AGTtocVersion",
     "AGTkeyword",
     "AGTkeyword",
     "AGTresponse",

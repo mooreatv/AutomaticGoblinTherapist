@@ -576,11 +576,7 @@
         </Anchors>
         <Scripts>
           <OnVerticalScroll>
-			if AGTtocVersion >= 30000 then
-				FauxScrollFrame_OnVerticalScroll(self, offset, 20, AGTEditScrollBars_Update);
-			else
-				FauxScrollFrame_OnVerticalScroll(20, AGTEditScrollBars_Update);
-			end
+			FauxScrollFrame_OnVerticalScroll(self, offset, 20, AGTEditScrollBars_Update);
           </OnVerticalScroll>
           <OnShow>
             AGTEditScrollBars_Update()
@@ -656,11 +652,7 @@
         </Anchors>
         <Scripts>
           <OnVerticalScroll>
-			if AGTtocVersion >= 30000 then
-				FauxScrollFrame_OnVerticalScroll(self, offset, 20, AGTEditScrollBars_Update);
-			else
-				FauxScrollFrame_OnVerticalScroll(20, AGTEditScrollBars_Update);
-			end
+			FauxScrollFrame_OnVerticalScroll(self, offset, 20, AGTEditScrollBars_Update);
           </OnVerticalScroll>
           <OnShow>
             AGTEditScrollBars_Update()
