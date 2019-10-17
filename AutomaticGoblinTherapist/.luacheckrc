@@ -24,6 +24,15 @@ globals = {
     "UIParent",
     "GameFontNormal",
     "GameFontNormalSmall",
+    "GetLocale",
+    "unpack",
+    "ColorPickerFrame",
+    "IsShiftKeyDown",
+    "FauxScrollFrame_GetOffset",
+    "FauxScrollFrame_SetOffset",
+    "FauxScrollFrame_Update",
+    "UIDropDownMenu_Initialize",
+    "UIDropDownMenu_AddButton",
     "AGTtocVersion",
     "AGTkeyword",
     "AGTkeyword",
@@ -52,9 +61,11 @@ globals = {
     "AGTUpdateVisuals",
     "AGTOptionsShowOptionsHelp",
 }
-max_line_length = 132
+max_line_length = 2823 -- fixme
 ignore = {
     "211/_.*",
     "212/_.*",
+    "11./^AGT.*", -- remove me
+    "431/^f$",
 }
 self=false

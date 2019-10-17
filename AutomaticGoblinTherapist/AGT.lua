@@ -1200,7 +1200,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsLoadSettings()
-  local tLocale = ""
+  local tLocale
   if AGTOptionsLocales[GetLocale()] then
     tLocale = GetLocale()
   else
@@ -1226,7 +1226,7 @@ function AGTOptionsLoadSettings()
     end
   end)
 
-  table.foreach(tempSorttable, function(key, value)
+  table.foreach(tempSorttable, function(_key, value)
     local tvalue = ""
     local ttype = ""
     local tdescription = ""
@@ -1238,7 +1238,6 @@ function AGTOptionsLoadSettings()
     local tOnClick = nil
     local tOnShow = nil
     local tOnHide = nil
-    local tFrameName = nil
     table.foreach(AGTOptionsSettingsTemplate[AGTOptionsActualOptionsTemplate][value], function(nkey, nvalue)
       if nkey == "Value" then
         tvalue = AGTOptionsSettings[AGTOptionsActualOptionsTemplate][value]["Value"]
@@ -1279,7 +1278,7 @@ function AGTOptionsLoadSettings()
     end)
 
     if value then
-      local tframe = nil
+      local tframe
       if _G["AGTOptionsTabsSettings" .. value] == nil then
         tframe = CreateFrame(ttype, "AGTOptionsTabsSettings" .. value, _G["AGTOptionsTabsSettings"], ttemplate)
       else
@@ -1416,12 +1415,12 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsColorPickerPrepare(target)
   AGTOptionsOptionsColorPickerActualFrame = target
-  local r, g, b, a = _G[target]:GetBackdropColor()
+  local r, g, b, _a = _G[target]:GetBackdropColor()
   ColorPickerFrame.previousValues = {r, g, b}
   ColorPickerFrame.func = AGTOptionsColorPickerChangeColor
   ColorPickerFrame.cancelFunc = AGTOptionsColorPickerCancel
   ColorPickerFrame.hasOpacity = false
-  -- ColorSwatch:SetTexture(_G[target]:GetBackdropColor()) 
+  -- ColorSwatch:SetTexture(_G[target]:GetBackdropColor())
   ColorPickerFrame:SetColorRGB(_G[target]:GetBackdropColor())
   ColorPickerFrame:Show()
 end
@@ -1450,7 +1449,7 @@ end
 ------------------------------------------------------------------------------------
 --
 ------------------------------------------------------------------------------------
-function AGTOptionsOpenOnEvent(self)
+function AGTOptionsOpenOnEvent(_self)
   local panel = _G["AGTOptions"]
   panel.name = "AGT"
   panel:ClearAllPoints()
@@ -1461,7 +1460,7 @@ end
 --
 --------------------------------------------------------------------------------------------------------------------------------
 function AGTOptionsInitAll()
-  local tframe = nil
+  local tframe
   local y = -5
   local xs = 0
   for x = 1, AGTOptionsNoOptionsFrameTemplates, 1 do
@@ -1482,13 +1481,13 @@ function AGTOptionsInitAll()
       end)
     end)
 
-    for x = 1, AGTOptionsNoOptionsFrameTemplates, 1 do
-      if AGTOptionsSettings[AGTOptionsOptionsTemplate[x]] then
-        table.foreach(AGTOptionsSettings[AGTOptionsOptionsTemplate[x]], function(key, value)
-          if AGTOptionsSettingsTemplate[AGTOptionsOptionsTemplate[x]][key] == nil then
-            DEFAULT_CHAT_FRAME:AddMessage("Old setting " .. key .. " in " .. AGTOptionsOptionsTemplate[x] ..
+    for xx = 1, AGTOptionsNoOptionsFrameTemplates, 1 do
+      if AGTOptionsSettings[AGTOptionsOptionsTemplate[xx]] then
+        table.foreach(AGTOptionsSettings[AGTOptionsOptionsTemplate[xx]], function(key, _value)
+          if AGTOptionsSettingsTemplate[AGTOptionsOptionsTemplate[xx]][key] == nil then
+            DEFAULT_CHAT_FRAME:AddMessage("Old setting " .. key .. " in " .. AGTOptionsOptionsTemplate[xx] ..
                                             " not longer in use - Removed.")
-            AGTOptionsSettings[AGTOptionsOptionsTemplate[x]][key] = nil
+            AGTOptionsSettings[AGTOptionsOptionsTemplate[xx]][key] = nil
           end
         end)
       end
@@ -1527,8 +1526,6 @@ function AGTOptionsReset()
   AGTOptionsSettings = {}
   AGTOptionsActualOptionsTemplate = AGTOptionsOptionsTemplate[1]
   AGTOptionsOptionsColorPickerActualFrame = ""
-  local y = -5
-  local xs = 0
   for x = 1, AGTOptionsNoOptionsFrameTemplates, 1 do
     AGTOptionsSettings[AGTOptionsOptionsTemplate[x]] = {}
     table.foreach(AGTOptionsSettingsTemplate[AGTOptionsOptionsTemplate[x]], function(key, value)
@@ -1610,7 +1607,8 @@ AGTOptionsSettingsTemplate["Global"] = {
       end
       _G[self:GetName() .. "FSVal"]:SetText(math.floor(self:GetValue()))
     end,
-    enENHelp = "Number of seconds ATG waits before removing a inactive character from a seat (inactive are all characters who don't send new whispers).",
+    enENHelp = "Number of seconds ATG waits before removing a inactive character from a seat " ..
+      "(inactive are all characters who don't send new whispers).",
     enENDescription = "Remove After"
   },
   CharsPerMinute = {
@@ -1627,7 +1625,7 @@ AGTOptionsSettingsTemplate["Global"] = {
       end
       _G[self:GetName() .. "FSVal"]:SetText(math.floor(self:GetValue()))
     end,
-    enENHelp = "To don't confuse the conversation partner the Therapist answers in a natural manner typing x characters per minute)",
+    enENHelp = "To don't confuse the conversation partner the Therapist answers in a natural manner typing x characters per minute",
     enENDescription = "Chars Per Minute"
   },
   OnlyLast = {
@@ -1638,7 +1636,8 @@ AGTOptionsSettingsTemplate["Global"] = {
     OnClick = function()
       AGTOptionsSaveSettings()
     end,
-    enENHelp = "If a conversation partner sends multiple whispers in a row or if he/she sends the next whisper before the previous was answered the Therapist will reply to the most recent whisper only.",
+    enENHelp = "If a conversation partner sends multiple whispers in a row or if he/she sends the next whisper" ..
+      " before the previous was answered the Therapist will reply to the most recent whisper only.",
     enENDescription = "Most Recent Only"
   },
   Quotes = {
@@ -1655,7 +1654,12 @@ AGTOptionsSettingsTemplate["Global"] = {
       end
       _G[self:GetName() .. "FSVal"]:SetText(math.floor(self:GetValue()))
     end,
-    enENHelp = "AGT replies to whispers without recognized keywords with\nneutral phrases like \"I see\" or \"I'm not sure I understand\nyou fully\". This option is to add more variety to these\nkind of replies. The option forces AGT to reply to x percent\nof the incoming whispers with a quote out of a list approx.\n700 predefinied quotes. If you set the option to 100% AGT\nansweres every whisper without keywords with a quote. If\nyou set the option to 0% AGT don't replies with quotes. A\ngood value for this option is 20%.",
+    enENHelp = "AGT replies to whispers without recognized keywords with\nneutral phrases like \"I see\" " ..
+      "or \"I'm not sure I understand\nyou fully\". This option is to add more variety to these\nkind of replies." ..
+      " The option forces AGT to reply to x percent\nof the incoming whispers with a quote out of a list approx.\n" ..
+      "700 predefinied quotes. If you set the option to 100% AGT\n" ..
+      "answers every whisper without keywords with a quote. If\n" ..
+      "you set the option to 0% AGT don't replies with quotes.\nA good value for this option is 20%.",
     enENDescription = "% Quote-Replies"
   },
   AddTherapistPrefix = {
@@ -1874,7 +1878,7 @@ AGTEditEditbox3List = 0
 AGTEditEditbox3Entry = 0
 
 function AGTEditScrollBar_OnClick(...)
-  local self, arg1, down = ...
+  local self, arg1, _down = ...
 
   if arg1 == "LeftButton" then
     if IsShiftKeyDown() then
@@ -1950,9 +1954,11 @@ function AGTEditScrollBar_OnClick(...)
     if IsShiftKeyDown() then
       -- delete
       if string.find(self:GetName(), "AGTEdit1") and AGTParent == 2 then
-
+        -- ?
+        print("AGT right button and shift edit1") -- fix/refactor/ use debug print...
       elseif string.find(self:GetName(), "AGTEdit2") and AGTParent == 1 then
-
+        -- ?
+        print("AGT right button and shift edit2")
       end
     else
       if string.find(self:GetName(), "AGTEdit1") and AGTParent == 2 then
@@ -2048,7 +2054,6 @@ function AGTEditScrollBars_Update()
     end
   end
 
-  local lineplusoffset
   FauxScrollFrame_Update(AGTEditScrollBar2, #AGTresponse, 10, 20)
   for line = 1, 10, 1 do
     lineplusoffset = line + FauxScrollFrame_GetOffset(AGTEditScrollBar2)
@@ -2183,6 +2188,7 @@ end
 
 function AGTOptionsOutputDropDown_OnLoad(frame, source, value)
   local tname = frame:GetName()
+  -- tint?
   UIDropDownMenu_Initialize(frame, function()
     local entry = {
       func = function(self)
@@ -2196,7 +2202,7 @@ function AGTOptionsOutputDropDown_OnLoad(frame, source, value)
     end
   end)
 end
-function AGTOptionsOutputDropDown_OnClick(self, tname)
+function AGTOptionsOutputDropDown_OnClick(self, _tname)
   AGTNotFoundKey = AGTLibs[AGTLibsNames[self:GetID()]].AGTNotFoundKey
   AGTRepeatKey = AGTLibs[AGTLibsNames[self:GetID()]].AGTRepeatKey
   AGTkeyword = AGTLibs[AGTLibsNames[self:GetID()]].AGTkeyword
