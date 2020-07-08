@@ -1450,7 +1450,7 @@ end
 ------------------------------------------------------------------------------------
 function AGTOptionsOpenOnEvent(_self)
   local panel = _G["AGTOptions"]
-  panel.name = "AGT"
+  panel.name = "Automatic Goblin Therapist"
   panel:ClearAllPoints()
   InterfaceOptions_AddCategory(panel)
   AGTOptionsInitAll()
