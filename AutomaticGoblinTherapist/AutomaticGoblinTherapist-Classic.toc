@@ -1,6 +1,6 @@
-## Interface: 90200
+## Interface: 11402
 ## Title: Automatic Goblin Therapist
-## Notes: Shadowlands Eternity's End edition
+## Notes: Classic (Era and SoM) edition
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
 ## Globe: check-classic

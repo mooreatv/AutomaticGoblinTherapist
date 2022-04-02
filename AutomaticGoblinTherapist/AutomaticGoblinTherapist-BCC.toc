@@ -1,6 +1,6 @@
-## Interface: 90200
+## Interface: 20504
 ## Title: Automatic Goblin Therapist
-## Notes: Shadowlands Eternity's End edition
+## Notes: Burning Crusade edition
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
 ## Globe: check-classic
