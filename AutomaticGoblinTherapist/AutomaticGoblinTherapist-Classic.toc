@@ -4,6 +4,11 @@
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
 ## Globe: check-classic
+## X-OpenSource-License: LPGLv3
+## X-OpenSource-Releases: https://github.com/mooreatv/AutomaticGoblinTherapist/releases
+## X-Curse-Project-ID: 323266
+## X-WoWI-ID: 23151
+## X-Wago-ID: 9rN4pAND
 AGT_Quotes.lua
 AGT_Lib.lua
 AGT.lua
