@@ -9,6 +9,7 @@ by Duugu (EU - Die silberne Hand - Horde)
 - Fix saved vars bug
 - File format special character errors
 - SetBackdrop fix
+- Addon Options slider fix thanks to Meorawr (WoW AddOns; discord)
 
 1.5.0
 - Code import to https://github.com/mooreatv/AutomaticGoblinTherapist
