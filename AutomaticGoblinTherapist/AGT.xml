@@ -1,19 +1,19 @@
-<UI xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
-..\..\FrameXML\UI.xsd"> 
-	<Frame name="AGTParse"> 
-		<Scripts> 
+<UI xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+	<Frame name="AGTParse">
+		<Scripts>
 			<OnLoad>
 				AGTOnLoad(self)
-			</OnLoad> 
+			</OnLoad>
 			<OnEvent>
 				AGTOnEvent(self, event, ...)
 			</OnEvent>
 			<OnUpdate>
 				AGTOnUpdate(self, elapsed)
 			</OnUpdate>
-		</Scripts> 
-	</Frame> 
-	
+		</Scripts>
+	</Frame>
+
 	<Frame name="AGTOptions" setAllPoints="true" frameStrata="FULLSCREEN_DIALOG" enableMouse="false" movable="false" parent="UIParent" hidden="true" enableKeyboard="true">
 		<TitleRegion setAllPoints="true" />
 		<Backdrop name="$parentBackdrop" bgFile="" edgeFile="" tile="true">
@@ -90,9 +90,9 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
-			
+
 			</OnLoad>
-		</Scripts>					
+		</Scripts>
 	</Frame>
 
 
@@ -155,8 +155,8 @@
 			<OnEnter>
 				AGTOptionsShowOptionsHelp(self:GetName(), true);
 			</OnEnter>
-		</Scripts>					
-		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall" 
+		</Scripts>
+		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall"
 			text="Color"
 		><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent"><Offset><AbsDimension x="25" y="-5"/></Offset></Anchor></Anchors></FontString></Layer></Layers>
 		<!--<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>-->
@@ -184,7 +184,7 @@
 		</Backdrop>
 		<Scripts>
 			<OnClick>
-				
+
 			</OnClick>
 			<OnLeave>
 				AGTOptionsShowOptionsHelp(self:GetName(), false);
@@ -192,7 +192,7 @@
 			<OnEnter>
 				AGTOptionsShowOptionsHelp(self:GetName(), true);
 			</OnEnter>
-		</Scripts>					
+		</Scripts>
 	</Button>
 
 
@@ -212,13 +212,13 @@
 			<OnEnter>
 				AGTOptionsShowOptionsHelp(self:GetName(), true);
 			</OnEnter>
-		</Scripts>					
-		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall" 
+		</Scripts>
+		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall"
 			text="template"
 		><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent"><Offset><AbsDimension x="25" y="-5"/></Offset></Anchor></Anchors></FontString></Layer></Layers>
 	</CheckButton>
-	
-	
+
+
 	<EditBox name="AGTOptionsEditboxTemplate" letters="5" historyLines="0" autoFocus="false" virtual="true">
 		<Size><AbsDimension x="270" y="20"/></Size>
 		<Anchors><Anchor point="TOPLEFT"><Offset>
@@ -253,12 +253,12 @@
 			</OnEnter>
 		</Scripts>
 		<FontString inherits="ChatFontNormal"/>
-		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall" 
+		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall"
 			text="template"				><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent"><Offset>
 			<AbsDimension x="270" y="-6"/>			</Offset>
 		</Anchor></Anchors></FontString></Layer></Layers>
 	</EditBox>
-	
+
 	<Slider name="AGTOptionsSliderTemplate" inherits="OptionsSliderTemplate" virtual="true">
 		<Size><AbsDimension x="260" y="10"/></Size>
 		<Anchors><Anchor point="LEFT" relativePoint="TOPLEFT" relativeTo="$parent"><Offset>
@@ -268,25 +268,25 @@
 			<OnLoad>
 				self:SetMinMaxValues(0, 100);self:SetValueStep(1);self:SetValue(0);
 			</OnLoad>
-			<OnEnter> 
+			<OnEnter>
 				AGTOptionsCONSTSaveValue = true;
 				AGTOptionsShowOptionsHelp(self:GetName(), true);
-			</OnEnter> 
-			<OnLeave> 
+			</OnEnter>
+			<OnLeave>
 				AGTOptionsCONSTSaveValue = false;
 				AGTOptionsShowOptionsHelp(self:GetName(), false);
-			</OnLeave> 
+			</OnLeave>
 			<OnValueChanged>
-				if AGTOptionsCONSTSaveValue == true then 
+				if AGTOptionsCONSTSaveValue == true then
 					AGTOptionsSaveSettings();
 				end
 			</OnValueChanged>
 		</Scripts>
-		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall" 
+		<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall"
 			text="template"				><Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent"><Offset>
 			<AbsDimension x="265" y="-2"/>			</Offset>
 		</Anchor></Anchors></FontString>
-			<FontString name="$parentFSVal" inherits="GameFontHighlightSmall" 
+			<FontString name="$parentFSVal" inherits="GameFontHighlightSmall"
 			text="0"				><Anchors><Anchor point="CENTER" relativePoint="CENTER" relativeTo="$parent"><Offset>
 			<AbsDimension x="0" y="-7"/>			</Offset>
 		</Anchor></Anchors></FontString></Layer></Layers>
@@ -323,19 +323,19 @@
 		<Size>
 			<AbsDimension x="200" y="200"/>
 		</Size>
-		<Scripts> 
-		<OnLoad> 
-		   self:SetOwner(UIParent, "ANCHOR_NONE"); 
-		</OnLoad> 
-		</Scripts> 
-	</GameTooltip> 
-	
-	
-	
-	
-	
-	
-	
+		<Scripts>
+		<OnLoad>
+		   self:SetOwner(UIParent, "ANCHOR_NONE");
+		</OnLoad>
+		</Scripts>
+	</GameTooltip>
+
+
+
+
+
+
+
   <Frame name = "AGTEditList1EntryTemplate" virtual="true">
     <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="true">
       <BackgroundInsets>
@@ -433,7 +433,7 @@
 		</Layer>
 	</Layers>
   </Frame>
-	
+
 
 
 
@@ -466,10 +466,10 @@
 			AGTEditEditboxText3:ClearFocus()
 			AGTParent = 0
 			for x = 1, table.getn(AGTresponse), 1 do
-				AGTresponse[x].Selected = false 
+				AGTresponse[x].Selected = false
 			end
 			for x = 1, table.getn(AGTkeyword), 1 do
-				AGTkeyword[x].Selected = false 
+				AGTkeyword[x].Selected = false
 			end
 			AGTEditScrollBars_Update()
 		</OnHide>
@@ -528,7 +528,7 @@
 			</FontString>
 		</Layer>
 	</Layers>
-	
+
     <Frames>
 		<Button name="$parentClose" inherits="UIPanelCloseButton">
 			<Anchors>
@@ -553,10 +553,10 @@
 					AGTEditEditboxText3:ClearFocus()
 					AGTParent = 0
 					for x = 1, table.getn(AGTresponse), 1 do
-						AGTresponse[x].Selected = false 
+						AGTresponse[x].Selected = false
 					end
 					for x = 1, table.getn(AGTkeyword), 1 do
-						AGTkeyword[x].Selected = false 
+						AGTkeyword[x].Selected = false
 					end
 					AGTEditScrollBars_Update()
 					AGTEdit:Hide()
@@ -714,12 +714,12 @@
           <Anchor point="TOPLEFT" relativeTo="AGTEdit2Entry9" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Button>
-	  
-	  
-	  
-	  
 
-	
+
+
+
+
+
 		<Frame name="AGTEditEditbox3" enableMouse="true">
 			<Size>
 				<AbsDimension x="590" y="24"/>
@@ -741,7 +741,7 @@
 			  <EdgeSize>
 				<AbsValue val="16" />
 			  </EdgeSize>
-			</Backdrop>	
+			</Backdrop>
 			<Frames>
 				<EditBox name="AGTEditEditboxText3" letters="45" multiLine="false" enableMouse="true" autoFocus="false">
 					<Size>
@@ -780,11 +780,11 @@
 			<Scripts>
 				<OnMouseUp>
 					AGTEditEditboxText3:SetFocus()
-				</OnMouseUp> 
+				</OnMouseUp>
 			</Scripts>
-		</Frame>	  
-	  
-	  
+		</Frame>
+
+
 		<Button name="AGTEditSave" inherits="UIPanelButtonTemplate" text="Save edit">
 			<Size><AbsDimension x="150" y="25"/></Size>
 			<Anchors><Anchor point="TOPLEFT" relativeTo="$parent"  relativePoint="TOPLEFT"><Offset>
@@ -793,8 +793,8 @@
 				<OnClick>
 					AGTSaveButton()
 				</OnClick>
-			</Scripts>					
-		</Button>	  
+			</Scripts>
+		</Button>
 		<Button name="AGTEditSaveKey" inherits="UIPanelButtonTemplate" text="Save as new keyword">
 			<Size><AbsDimension x="150" y="25"/></Size>
 			<Anchors><Anchor point="TOPLEFT" relativeTo="$parent"  relativePoint="TOPLEFT"><Offset>
@@ -803,8 +803,8 @@
 				<OnClick>
 					AGTNewKeyButton()
 				</OnClick>
-			</Scripts>					
-		</Button>	  
+			</Scripts>
+		</Button>
 		<Button name="AGTEditSaveResponse" inherits="UIPanelButtonTemplate" text="Save as new response">
 			<Size><AbsDimension x="150" y="25"/></Size>
 			<Anchors><Anchor point="TOPLEFT" relativeTo="$parent"  relativePoint="TOPLEFT"><Offset>
@@ -813,12 +813,12 @@
 				<OnClick>
 					AGTNewResponseButton()
 				</OnClick>
-			</Scripts>					
-		</Button>	  	  
-	  
-	  
-	  
-	  
+			</Scripts>
+		</Button>
+
+
+
+
 		<Button name="AGTEditLibrary" inherits="UIDropDownMenuTemplate" >
 			<Size>
 				<AbsDimension x="110" y="15"/>
@@ -839,9 +839,9 @@
 			</Scripts>
 			<Layers><Layer level="ARTWORK"><FontString name="$parentFS" inherits="GameFontHighlightSmall" text="Load library"><Anchors>
 			<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent">
-			<Offset><AbsDimension x="160" y="-8"/></Offset></Anchor></Anchors></FontString></Layer></Layers>		
-		</Button>	  
-	  
+			<Offset><AbsDimension x="160" y="-8"/></Offset></Anchor></Anchors></FontString></Layer></Layers>
+		</Button>
+
 		<Frame name="AGTEditHelpFrame" hidden="true" frameStrata="TOOLTIP">
 			<Size>
 			  <AbsDimension x="600" y="500"/>
@@ -876,7 +876,7 @@
 						</Anchor></Anchors>
 					</FontString>
 				</Layer>
-			</Layers>	  
+			</Layers>
 			<Scripts>
 				<OnShow>
 						AGTEditHelpButton:SetText("THX")
@@ -887,8 +887,8 @@
 					PlaySound(840);
 				</OnHide>
 			</Scripts>
-		</Frame>	
-	  
+		</Frame>
+
 		<Button name="AGTEditHelpButton" inherits="UIPanelButtonTemplate" text="HELP ME. I'M LOST" frameStrata="TOOLTIP">
 			<Size><AbsDimension x="150" y="25"/></Size>
 			<Anchors><Anchor point="BOTTOM" relativeTo="$parent"  relativePoint="BOTTOM"><Offset>
@@ -901,36 +901,21 @@
 						AGTEditHelpFrame:Show()
 					end
 				</OnClick>
-			</Scripts>					
-		</Button>	  		  
-    </Frames>	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			</Scripts>
+		</Button>
+    </Frames>
+
+
+
+
+
+
+
+
+
+
   </Frame>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-</UI> 
 
 
 
@@ -945,3 +930,4 @@
 
 
 
+</UI>
