@@ -4,6 +4,12 @@ AGT - Automatic Goblin Therapist
 by Duugu (EU - Die silberne Hand - Horde)
 -------------------------------------------------------------------------------------------------------------
 
+1.6.0
+- Updates for Multi Toc
+- Fix saved vars bug
+- File format special character errors
+- SetBackdrop fix
+
 1.5.0
 - Code import to https://github.com/mooreatv/AutomaticGoblinTherapist
 - Auto packaging for retail and classic
@@ -1021,7 +1027,7 @@ function AGTTherapyOnClick(self, button, _down)
 end
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
-local f = CreateFrame("Frame", "AGTMain", UIParent)
+local f = CreateFrame("Frame", "AGTMain", UIParent, BackdropTemplateMixin)
 f:SetFrameStrata("MEDIUM")
 f:SetWidth(260)
 f:SetHeight(145)
@@ -1075,7 +1081,7 @@ fs:SetText("Surgery ")
 
 -- Therapy buttons
 for x = 1, 5, 1 do
-  local tf = CreateFrame("Button", "AGTMainTherapy" .. x, f)
+  local tf = CreateFrame("Button", "AGTMainTherapy" .. x, f, BackdropTemplateMixin)
   tf:SetWidth(125)
   tf:SetHeight(20)
   tf:SetPoint("TOPLEFT", "AGTMain", "TOPLEFT", 0, ((-16) - (x * 21)))
