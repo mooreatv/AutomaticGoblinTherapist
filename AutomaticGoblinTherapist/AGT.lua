@@ -1027,7 +1027,7 @@ function AGTTherapyOnClick(self, button, _down)
 end
 ------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
-local f = CreateFrame("Frame", "AGTMain", UIParent, BackdropTemplateMixin)
+local f = CreateFrame("Frame", "AGTMain", UIParent, "BackdropTemplate")
 f:SetFrameStrata("MEDIUM")
 f:SetWidth(260)
 f:SetHeight(145)
@@ -1081,7 +1081,7 @@ fs:SetText("Surgery ")
 
 -- Therapy buttons
 for x = 1, 5, 1 do
-  local tf = CreateFrame("Button", "AGTMainTherapy" .. x, f, BackdropTemplateMixin)
+  local tf = CreateFrame("Button", "AGTMainTherapy" .. x, f, "BackdropTemplate")
   tf:SetWidth(125)
   tf:SetHeight(20)
   tf:SetPoint("TOPLEFT", "AGTMain", "TOPLEFT", 0, ((-16) - (x * 21)))

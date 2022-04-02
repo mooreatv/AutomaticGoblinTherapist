@@ -58,7 +58,6 @@ globals = {
     "AGTUpdateVisuals",
     "AGTOptionsShowOptionsHelp",
     "C_FriendList",
-    "BackdropTemplateMixin",
 }
 max_line_length = 2823 -- fixme
 ignore = {

@@ -265,7 +265,7 @@
 			<AbsDimension x="8" y="-90"/>
 		</Offset></Anchor></Anchors>
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				self:SetMinMaxValues(0, 100);self:SetValueStep(1);self:SetValue(0);
 			</OnLoad>
 			<OnEnter>
