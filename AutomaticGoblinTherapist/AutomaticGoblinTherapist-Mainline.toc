@@ -1,4 +1,4 @@
-## Interface: 90205
+## Interface: 90207
 ## Title: Automatic Goblin Therapist
 ## Notes: Shadowlands Eternity's End edition
 ## Version: @project-version@
