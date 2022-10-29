@@ -1,6 +1,6 @@
-## Interface: 90207
+## Interface: 100000
 ## Title: Automatic Goblin Therapist
-## Notes: Shadowlands Eternity's End edition
+## Notes: Dragonflight edition
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: AGTOptionsSettings, AGTkeyword, AGTresponse
 ## Globe: check-classic
@@ -12,4 +12,4 @@
 AGT_Quotes.lua
 AGT_Lib.lua
 AGT.lua
-AGT.xml
+AGT2.xml
